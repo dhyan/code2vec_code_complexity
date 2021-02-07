@@ -10,7 +10,7 @@ import java.util.concurrent.Callable;
 import org.apache.commons.lang3.StringUtils;
 
 import com.github.javaparser.ParseException;
-import com.github.javaparser.ast.CompilationUnit;
+// import com.github.javaparser.ast.CompilationUnit;
 
 import JavaExtractor.Common.CommandLineValues;
 import JavaExtractor.Common.Common;
@@ -47,12 +47,14 @@ public class ExtractFeaturesTask implements Callable<Void> {
 
 		String toPrint = featuresToString(features);
 		if (toPrint.length() > 0) {
+		    // System.out.println("yes yesy yes yes===================");
 			System.out.println(toPrint);
 		}
 	}
 
 	public ArrayList<ProgramFeatures> extractSingleFile() throws ParseException, IOException {
 		String code = null;
+		Path filePath = this.filePath;
 		try {
 			code = new String(Files.readAllBytes(this.filePath));
 		} catch (IOException e) {
@@ -61,8 +63,8 @@ public class ExtractFeaturesTask implements Callable<Void> {
 		}
 		FeatureExtractor featureExtractor = new FeatureExtractor(m_CommandLineValues);
 
-		ArrayList<ProgramFeatures> features = featureExtractor.extractFeatures(code);
-
+		ArrayList<ProgramFeatures> features = featureExtractor.extractFeatures(code, filePath);
+        
 		return features;
 	}
 

@@ -31,7 +31,9 @@ public class FunctionVisitor extends VoidVisitorAdapter<Object> {
 		ArrayList<String> splitNameParts = Common.splitToSubtokens(node.getName());
 		String splitName = normalizedMethodName;
 		if (splitNameParts.size() > 0) {
-			splitName = splitNameParts.stream().collect(Collectors.joining(Common.internalSeparator));
+			// splitName = splitNameParts.stream().collect(Collectors.joining(Common.internalSeparator));
+			String objToString = obj.toString();
+			splitName = objToString;
 		}
 
 		if (node.getBody() != null) {

@@ -2,6 +2,8 @@ import random
 from argparse import ArgumentParser
 import common
 import pickle
+import pandas as pd
+import time
 
 '''
 This script preprocesses the data from MethodPaths. It truncates methods with too many contexts,
@@ -66,12 +68,20 @@ def process_file(file_path, data_file_role, dataset_name, word_to_count, path_to
                 total += 1
 
     print('File: ' + file_path)
-    print('Average total contexts: ' + str(float(sum_total) / total))
-    print('Average final (after sampling) contexts: ' + str(float(sum_sampled) / total))
+    # print('Average total contexts: ' + str(float(sum_total) / total))
+    # print('Average final (after sampling) contexts: ' + str(float(sum_sampled) / total))
     print('Total examples: ' + str(total))
     print('Empty examples: ' + str(empty))
     print('Max number of contexts per word: ' + str(max_unfiltered))
     return total
+
+def replace_with_complexity_class(str):
+    df = pd.read_csv('metadata.csv')
+    print('file name is', str)
+    file_name = str.split("/")[-1]
+    complexity = df.loc[df['file_name'] == file_name].complexity
+    complexity = complexity.values[0]
+    return complexity
 
 
 def context_full_found(context_parts, word_to_count, path_to_count):

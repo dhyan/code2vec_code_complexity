@@ -87,6 +87,7 @@ class Code2VecModel(Code2VecModelBase):
                     #    "shuffle_batch/random_shuffle_queue_Size:0"))
                     sum_loss = 0
                     multi_batch_start_time = time.time()
+                print('let see values of batch num and num_batches_to_save_and_eval====================', batch_num % num_batches_to_save_and_eval)
                 if batch_num % num_batches_to_save_and_eval == 0:
                     epoch_num = int((batch_num / num_batches_to_save_and_eval) * self.config.SAVE_EVERY_EPOCHS)
                     model_save_path = self.config.MODEL_SAVE_PATH + '_iter' + str(epoch_num)
@@ -100,6 +101,7 @@ class Code2VecModel(Code2VecModelBase):
                         evaluation_results=evaluation_results_str
                     ))
         except tf.errors.OutOfRangeError:
+            print("Tenserflow queue got empty. Guess thats your epoch limit!!!!!!!!")
             pass  # The reader iterator is exhausted and have no more batches to produce.
 
         self.log('Done training')

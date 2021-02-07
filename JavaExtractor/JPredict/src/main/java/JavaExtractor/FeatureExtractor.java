@@ -1,6 +1,7 @@
 package JavaExtractor;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,11 +37,11 @@ public class FeatureExtractor {
 		this.m_CommandLineValues = commandLineValues;
 	}
 
-	public ArrayList<ProgramFeatures> extractFeatures(String code) throws ParseException, IOException {
+	public ArrayList<ProgramFeatures> extractFeatures(String code, Path filePath) throws ParseException, IOException {
 		CompilationUnit compilationUnit = parseFileWithRetries(code);
 		FunctionVisitor functionVisitor = new FunctionVisitor();
 
-		functionVisitor.visit(compilationUnit, null);
+		functionVisitor.visit(compilationUnit, filePath);
 
 		ArrayList<MethodContent> methods = functionVisitor.getMethodContents();
 		ArrayList<ProgramFeatures> programs = generatePathFeatures(methods);

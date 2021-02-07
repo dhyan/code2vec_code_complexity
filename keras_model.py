@@ -37,12 +37,14 @@ class Code2VecModel(Code2VecModelBase):
     def _create_keras_model(self):
         # Each input sample consists of a bag of x`MAX_CONTEXTS` tuples (source_terminal, path, target_terminal).
         # The valid mask indicates for each context whether it actually exists or it is just a padding.
+        # Input:- Input() is used to instantiate a Keras tensor.
         path_source_token_input = Input((self.config.MAX_CONTEXTS,), dtype=tf.int32)
         path_input = Input((self.config.MAX_CONTEXTS,), dtype=tf.int32)
         path_target_token_input = Input((self.config.MAX_CONTEXTS,), dtype=tf.int32)
         context_valid_mask = Input((self.config.MAX_CONTEXTS,))
 
         # Input paths are indexes, we embed these here.
+        # Embedding :- Turns positive integers (indexes) into dense vectors of fixed size.
         paths_embedded = Embedding(
             self.vocabs.path_vocab.size, self.config.PATH_EMBEDDINGS_SIZE, name='path_embedding')(path_input)
 

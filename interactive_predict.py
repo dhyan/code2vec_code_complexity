@@ -6,7 +6,7 @@ from extractor import Extractor
 SHOW_TOP_CONTEXTS = 10
 MAX_PATH_LENGTH = 8
 MAX_PATH_WIDTH = 2
-JAR_PATH = 'JavaExtractor/JavaExtractor.jar'
+JAR_PATH = 'JavaExtractor/code2vec_tenserflow.jar'
 
 
 class InteractivePredictor:

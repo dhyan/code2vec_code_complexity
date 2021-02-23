@@ -2,7 +2,6 @@ package JavaExtractor.Visitors;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.MethodDeclaration;
@@ -32,8 +31,10 @@ public class FunctionVisitor extends VoidVisitorAdapter<Object> {
 		String splitName = normalizedMethodName;
 		if (splitNameParts.size() > 0) {
 			// splitName = splitNameParts.stream().collect(Collectors.joining(Common.internalSeparator));
-			String objToString = obj.toString();
-			splitName = objToString;
+			// String objToString = obj.toString();
+			String[] parts = obj.toString().split("/");
+			String file = parts[parts.length - 2];
+			splitName = file;
 		}
 
 		if (node.getBody() != null) {

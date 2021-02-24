@@ -26,7 +26,7 @@ class InteractivePredictor:
             return file.readlines()
 
     def predict(self):
-        input_filename = 'Input.java'
+        input_filename = '/Users/nakumar/learnings/code2vec_tenserflow/Input.java'
         print('Starting interactive prediction...')
         while True:
             print(
